@@ -1,4 +1,4 @@
-# voc Demo
+# Voc Demo
 
 ![Screenshot of Voc Demo](voc_demo.png)
 
