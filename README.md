@@ -1,5 +1,7 @@
 # voc Demo
 
+![Screenshot of Voc Demo](voc_demo.png)
+
 This is a simple voc demo using RtAudio and Nuklear.
 
 ## Setup
