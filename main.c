@@ -12,6 +12,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "voc_demo.h"
+
 #define NK_INCLUDE_FIXED_TYPES
 #define NK_INCLUDE_STANDARD_IO
 #define NK_INCLUDE_STANDARD_VARARGS
@@ -53,13 +55,26 @@
 static void error_callback(int e, const char *d)
 {printf("Error %d: %s\n", e, d);}
 
-int main(void)
+int main(int argc, char *argv[])
 {
     /* Platform */
     static GLFWwindow *win;
     int width = 0, height = 0;
     struct nk_context *ctx;
     struct nk_color background;
+
+    voc_demo_d vd;
+    int i;
+    int sr;
+
+    sr = 44100;
+
+    if(argc > 1) {
+        sr = atoi(argv[1]);
+    }
+
+    voc_demo_setup(&vd, sr);
+    voc_demo_start(&vd);
 
     /* GLFW */
     glfwSetErrorCallback(error_callback);
@@ -108,29 +123,26 @@ int main(void)
             enum {EASY, HARD};
             static int op = EASY;
             static int property = 20;
-            nk_layout_row_static(ctx, 30, 80, 1);
-            if (nk_button_label(ctx, "button"))
-                fprintf(stdout, "button pressed\n");
-
-            nk_layout_row_dynamic(ctx, 30, 2);
-            if (nk_option_label(ctx, "easy", op == EASY)) op = EASY;
-            if (nk_option_label(ctx, "hard", op == HARD)) op = HARD;
-
-            nk_layout_row_dynamic(ctx, 25, 1);
-            nk_property_int(ctx, "Compression:", 0, &property, 100, 10, 1);
-
-            nk_layout_row_dynamic(ctx, 20, 1);
-            nk_label(ctx, "background:", NK_TEXT_LEFT);
-            nk_layout_row_dynamic(ctx, 25, 1);
-            if (nk_combo_begin_color(ctx, background, nk_vec2(nk_widget_width(ctx),400))) {
-                nk_layout_row_dynamic(ctx, 120, 1);
-                background = nk_color_picker(ctx, background, NK_RGBA);
-                nk_layout_row_dynamic(ctx, 25, 1);
-                background.r = (nk_byte)nk_propertyi(ctx, "#R:", 0, background.r, 255, 1,1);
-                background.g = (nk_byte)nk_propertyi(ctx, "#G:", 0, background.g, 255, 1,1);
-                background.b = (nk_byte)nk_propertyi(ctx, "#B:", 0, background.b, 255, 1,1);
-                background.a = (nk_byte)nk_propertyi(ctx, "#A:", 0, background.a, 255, 1,1);
-                nk_combo_end(ctx);
+            nk_layout_row_static(ctx, 30, 200, 1);
+            nk_label(ctx, "Gain:", NK_TEXT_LEFT);
+            nk_slider_float(ctx, 0, &vd.gain, 1, 0.01);
+            nk_label(ctx, "Frequency:", NK_TEXT_LEFT);
+            nk_slider_float(ctx, 10, vd.freq, 400, 0.01);
+            nk_label(ctx, "Velum:", NK_TEXT_LEFT);
+            nk_slider_float(ctx, 0, vd.velum, 0.8, 0.01);
+        }
+        nk_end(ctx);
+        
+        if (nk_begin(ctx, "Tract", nk_rect(300, 50, 230, 500),
+            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
+            NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
+        {
+            enum {EASY, HARD};
+            static int op = EASY;
+            static int property = 20;
+            nk_layout_row_static(ctx, 30, 200, 1);
+            for(i = 0; i < vd.tract_size; i++) {
+                nk_slider_float(ctx, 0, &vd.tract[i], 3.5, 0.01);
             }
         }
         nk_end(ctx);
@@ -157,6 +169,9 @@ int main(void)
     }
     nk_glfw3_shutdown();
     glfwTerminate();
+
+    voc_demo_stop(&vd);
+    voc_demo_destroy(&vd);
     return 0;
 }
 
