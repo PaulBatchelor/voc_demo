@@ -20,6 +20,9 @@ LIBS +=-framework CoreAudio -framework CoreMIDI -framework CoreFoundation \
 LIBS += -lglfw -framework Cocoa -framework CoreVideo -lm -lsoundpipe -lsndfile
 CXXFLAGS += -I/usr/local/include
 CFLAGS += -I/usr/local/include
+
+# Header files needed for MacPorts installations
+CFLAGS += -I/opt/local/include -L/opt/local/lib
 else
 CXX=g++
 CXXFLAGS += -D__UNIX_JACK__ 
