@@ -6,10 +6,10 @@ CONFIG ?=
 
 include $(CONFIG)
 
-OBJ = main.o rtaudio/RtAudio.o audio.o
+OBJ = main.o rtaudio/RtAudio.o audio.o voc/voc.o
 
 LIBS += -lglfw -lGL -lm -lGLU 
-LIBS += -lstdc++ -ljack -Lvoc -lvoc -lsoundpipe -lsndfile
+LIBS += -lstdc++ -ljack -lsoundpipe -lsndfile
 
 %.o: %.c
 	$(CC) -c $< $(CFLAGS) -o $@
