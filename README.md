@@ -2,7 +2,10 @@
 
 ![Screenshot of Voc Demo](voc_demo.png)
 
-This is a simple voc demo using RtAudio and Nuklear.
+This is a simple voc demo using 
+[RtAudio](https://github.com/thestk/rtaudio)
+and 
+[Nuklear](https://github.com/vurtun/nuklear).
 
 ## Setup
 
@@ -15,7 +18,3 @@ To run:
 
     ./voc_demo
 
-By default, it will run at a samplerate of 44.1kHz. To run with a different
-samplerate, run:
-
-    ./voc_demo 44100
