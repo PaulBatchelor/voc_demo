@@ -29,7 +29,6 @@ endif
 
 
 %.o: %.c
-	echo $(OS)
 	$(CC) -c $< $(CFLAGS) -o $@
 
 %.o: %.cpp
