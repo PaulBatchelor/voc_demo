@@ -12,21 +12,22 @@ and
 
 ## Setup
 
-First compile 
-[Voc](https://www.github.com/paulbatchelor/voc)
-from source. CWEB and 
-[Soundpipe](https://www.github.com/paulbatchelor/soundpipe) will
-need to be installed beforehand.
+This demo has been tested on both Linux and Mac OSX. 
+
+First, make sure that 
+[Soundpipe](https://www.github.com/paulbatchelor/soundpipe) is installed.
+Both Linux and OSX users will need to compile this from source.
 
 This demo relies on the GLFW OpenGL2 backend for Nuklear, so make sure that
-is properly configured and installed. 
+is properly configured and installed. On Linux, you'll install it through the
+package manager in the usually way. On OSX, you can install it with 
+"brew install glfw3".
 
-After Voc is compiled, copy "libvoc.a" and
-"voc.h" to the folder "voc".
+After the dependencies have been installed, compile the demo with:
 
-Then, compile the demo with:
     make
 
-To run, run:
+Then run it with:
+
     ./voc_demo
 
