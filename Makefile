@@ -1,7 +1,7 @@
 BIN = voc_demo
 
-CFLAGS = -std=c99 -pedantic -O2 -Inuklear -Ivoc
-CXXFLAGS = -D__UNIX_JACK__ -Irtaudio -Ivoc
+CFLAGS = -std=c99 -pedantic -O2 -Inuklear -Ivoc -g
+CXXFLAGS = -D__UNIX_JACK__ -Irtaudio -Ivoc -g
 CONFIG ?=
 
 include $(CONFIG)

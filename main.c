@@ -65,15 +65,8 @@ int main(int argc, char *argv[])
 
     voc_demo_d vd;
     int i;
-    int sr;
 
-    sr = 44100;
-
-    if(argc > 1) {
-        sr = atoi(argv[1]);
-    }
-
-    voc_demo_setup(&vd, sr);
+    voc_demo_setup(&vd);
     voc_demo_start(&vd);
 
     /* GLFW */

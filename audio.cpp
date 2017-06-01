@@ -4,6 +4,7 @@
 RtAudio audio;
 
 extern "C" {
+
 static int callme( void * outputBuffer, void * inputBuffer, unsigned int numFrames,
             double streamTime, RtAudioStreamStatus status, void * data )
 {
@@ -23,23 +24,13 @@ static int callme( void * outputBuffer, void * inputBuffer, unsigned int numFram
     return 0;
 }
 
-void voc_demo_setup(voc_demo_d *vd, int sr)
+void voc_demo_setup(voc_demo_d *vd)
 {
     unsigned int buffer_frames = 1024;
-    sp_create(&vd->sp);
-    vd->sp->sr = sr;
-    sp_voc_create(&vd->voc);
-    sp_voc_init(vd->sp, vd->voc);
-    vd->tract = sp_voc_get_tract_diameters(vd->voc);
-    vd->tract_size= sp_voc_get_tract_size(vd->voc);
-    vd->freq = sp_voc_get_frequency(vd->voc);
-    vd->velum = sp_voc_get_velum(vd->voc);
-
-    *vd->freq = 160;
-    vd->gain = 1;
-    audio.showWarnings( true );
-    
+   
+    RtAudio::DeviceInfo info; 
     RtAudio::StreamParameters iParams, oParams;
+    info = audio.getDeviceInfo(audio.getDefaultOutputDevice());
     iParams.deviceId = audio.getDefaultInputDevice();
     iParams.nChannels = 2;
     iParams.firstChannel = 0;
@@ -49,10 +40,23 @@ void voc_demo_setup(voc_demo_d *vd, int sr)
     
     RtAudio::StreamOptions options;
     
-   
+  
     audio.openStream( &oParams, &iParams, 
-            RTAUDIO_FLOAT32, sr, 
-            &buffer_frames, &callme, vd, &options );
+            RTAUDIO_FLOAT32, info.preferredSampleRate, 
+            &buffer_frames, &callme, vd, &options);
+    audio.showWarnings( true );
+
+    sp_create(&vd->sp);
+    vd->sp->sr = info.preferredSampleRate;
+    sp_voc_create(&vd->voc);
+    sp_voc_init(vd->sp, vd->voc);
+    vd->tract = sp_voc_get_tract_diameters(vd->voc);
+    vd->tract_size= sp_voc_get_tract_size(vd->voc);
+    vd->freq = sp_voc_get_frequency(vd->voc);
+    vd->velum = sp_voc_get_velum(vd->voc);
+
+    *vd->freq = 160;
+    vd->gain = 1;
 }
 
 void voc_demo_start(voc_demo_d *vd)
