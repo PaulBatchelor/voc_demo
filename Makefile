@@ -8,8 +8,24 @@ include $(CONFIG)
 
 OBJ = main.o rtaudio/RtAudio.o audio.o voc/voc.o
 
-LIBS += -lglfw -lGL -lm -lGLU 
+ifeq ($(system), Darwin)
+CXX=clang++
+CXXFLAGS=-D__MACOSX_CORE__ -c
+CFLAGS=-D__MACOSX_CORE__ -c
+LIBS=-framework CoreAudio -framework CoreMIDI -framework CoreFoundation \
+	-framework IOKit -framework Carbon  -framework OpenGL \
+	-framework GLUT -framework Foundation \
+	-framework AppKit -lstdc++ -lm -L/usr/local/lib
+LIBS += -lglfw3 -framework Cocoa -framework CoreVideo -lm -lGLEW 
+CXXFLAGS += -I/usr/local/include
+CFLAGS += -I/usr/local/include
+else
+CXX=g++
+CXXFLAGS=-D__UNIX_JACK__ -c
 LIBS += -lstdc++ -ljack -lsoundpipe -lsndfile
+LIBS += -lglfw -lGL -lm -lGLU 
+endif
+
 
 %.o: %.c
 	$(CC) -c $< $(CFLAGS) -o $@
