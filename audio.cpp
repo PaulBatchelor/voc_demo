@@ -8,7 +8,6 @@ extern "C" {
 static int callme( void * outputBuffer, void * inputBuffer, unsigned int numFrames,
             double streamTime, RtAudioStreamStatus status, void * data )
 {
-    SPFLOAT * input = (SPFLOAT *)inputBuffer;
     SPFLOAT * output = (SPFLOAT *)outputBuffer;
     int i;
     voc_demo_d *vd = (voc_demo_d *)data;
@@ -32,7 +31,7 @@ void voc_demo_setup(voc_demo_d *vd)
     RtAudio::StreamParameters iParams, oParams;
     info = audio.getDeviceInfo(audio.getDefaultOutputDevice());
     iParams.deviceId = audio.getDefaultInputDevice();
-    iParams.nChannels = 2;
+    iParams.nChannels = 0;
     iParams.firstChannel = 0;
     oParams.deviceId = audio.getDefaultOutputDevice();
     oParams.nChannels = 2;
@@ -41,7 +40,7 @@ void voc_demo_setup(voc_demo_d *vd)
     RtAudio::StreamOptions options;
     
   
-    audio.openStream( &oParams, &iParams, 
+    audio.openStream( &oParams, NULL, 
             RTAUDIO_FLOAT32, info.preferredSampleRate, 
             &buffer_frames, &callme, vd, &options);
     audio.showWarnings( true );
