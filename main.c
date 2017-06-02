@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
         nk_glfw3_new_frame();
 
         /* GUI */
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 500),
+        if (nk_begin(ctx, "Parameters", nk_rect(50, 50, 230, 500),
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
             NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
         {
