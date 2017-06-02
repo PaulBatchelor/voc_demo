@@ -1,7 +1,10 @@
 # Voc Demo
 
 A realtime demo of [Voc](https://www.github.com/paulbatchelor/voc), a vocal 
-tract physical model.
+tract physical model. 
+With the exception of RtAudio (released under the permissive STK license, 
+included here),
+all code here is licensed under public domain.
 
 ![Screenshot of Voc Demo](voc_demo.png)
 
