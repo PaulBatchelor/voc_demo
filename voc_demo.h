@@ -8,6 +8,11 @@ extern "C" {
 #include <soundpipe.h>
 #include "voc.h"
 
+enum {
+VOC_NONE,
+VOC_TONGUE
+}; 
+
 typedef struct {
     sp_data *sp;
     sp_voc *voc;
@@ -16,6 +21,9 @@ typedef struct {
     SPFLOAT *velum;
     uint32_t tract_size;
     SPFLOAT gain;
+    int mode;
+    SPFLOAT tongue_pos;
+    SPFLOAT tongue_diam;
 } voc_demo_d;
 
 void voc_demo_setup(voc_demo_d *vd);

@@ -54,7 +54,6 @@
  * ===============================================================*/
 static void error_callback(int e, const char *d)
 {printf("Error %d: %s\n", e, d);}
-
 int main(int argc, char *argv[])
 {
     /* Platform */
@@ -113,9 +112,6 @@ int main(int argc, char *argv[])
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
             NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
         {
-            enum {EASY, HARD};
-            static int op = EASY;
-            static int property = 20;
             nk_layout_row_static(ctx, 30, 200, 1);
             nk_label(ctx, "Gain:", NK_TEXT_LEFT);
             nk_slider_float(ctx, 0, &vd.gain, 1, 0.01);
@@ -130,21 +126,43 @@ int main(int argc, char *argv[])
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
             NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
         {
-            enum {EASY, HARD};
-            static int op = EASY;
-            static int property = 20;
             nk_layout_row_static(ctx, 30, 200, 1);
             for(i = 0; i < vd.tract_size; i++) {
                 nk_slider_float(ctx, 0, &vd.tract[i], 3.5, 0.01);
             }
         }
         nk_end(ctx);
+        
+        if (nk_begin(ctx, "Mode", nk_rect(570, 50, 230, 500),
+            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
+            NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
+        {
+            nk_layout_row_static(ctx, 30, 200, 1);
+            if(nk_option_label(ctx, "None", vd.mode == VOC_NONE)) {
+                vd.mode = VOC_NONE;
+            } 
+            if(nk_option_label(ctx, "Tongue", vd.mode == VOC_TONGUE)) {
+                vd.mode = VOC_TONGUE;
+                nk_slider_float(ctx, 10, &vd.tongue_pos, 40, 0.2);
+                nk_slider_float(ctx, 1, &vd.tongue_diam, 3.5, 0.01);
+            }
+        }
+        nk_end(ctx);
+        
+        if (nk_begin(ctx, "Plot", nk_rect(50, 500, 530, 210),
+            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
+            NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
+        {
+            nk_layout_row_static(ctx, 150, 500, 1);
+            nk_chart_begin(ctx, NK_CHART_COLUMN, 44, 0, 3.5);
+            /* nk_plot(ctx, NK_CHART_COLUMN, vd.tract, 44, 0); */
+            for(i = 0; i < 44; i++) {
+                nk_chart_push(ctx, vd.tract[i]);
+            }
+            nk_chart_end(ctx);
 
-        /* -------------- EXAMPLES ---------------- */
-        /*calculator(ctx);*/
-        /*overview(ctx);*/
-        /*node_editor(ctx);*/
-        /* ----------------------------------------- */
+        }
+        nk_end(ctx);
 
         /* Draw */
         {float bg[4];

@@ -14,6 +14,12 @@ static int callme( void * outputBuffer, void * inputBuffer, unsigned int numFram
     SPFLOAT tmp;
 
     for(i = 0; i < numFrames * 2; i+=2) {
+        if(sp_voc_get_counter(vd->voc) == 0) {
+            if(vd->mode == VOC_TONGUE) {
+                sp_voc_set_tongue_shape(vd->voc, 
+                        vd->tongue_pos, vd->tongue_diam);
+            }
+        }
         sp_voc_compute(vd->sp, vd->voc, &tmp);
         tmp *= vd->gain;
         output[i] = tmp;
@@ -56,6 +62,7 @@ void voc_demo_setup(voc_demo_d *vd)
 
     *vd->freq = 160;
     vd->gain = 1;
+    vd->mode = VOC_NONE;
 }
 
 void voc_demo_start(voc_demo_d *vd)
