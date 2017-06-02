@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
         nk_glfw3_new_frame();
 
         /* GUI */
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 250),
+        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 500),
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
             NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
         {
@@ -124,16 +124,6 @@ int main(int argc, char *argv[])
         }
         nk_end(ctx);
         
-        if (nk_begin(ctx, "Tract", nk_rect(300, 50, 230, 500),
-            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
-            NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
-        {
-            nk_layout_row_static(ctx, 30, 200, 1);
-            for(i = 0; i < vd.tract_size; i++) {
-                nk_slider_float(ctx, 0, &vd.tract[i], 3.5, 0.01);
-            }
-        }
-        nk_end(ctx);
         
         if (nk_begin(ctx, "Mode", nk_rect(570, 50, 230, 500),
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
@@ -145,7 +135,9 @@ int main(int argc, char *argv[])
             } 
             if(nk_option_label(ctx, "Tongue", vd.mode == VOC_TONGUE)) {
                 vd.mode = VOC_TONGUE;
+                nk_label(ctx, "Position:", NK_TEXT_LEFT);
                 nk_slider_float(ctx, 10, &vd.tongue_pos, 40, 0.2);
+                nk_label(ctx, "Diameter:", NK_TEXT_LEFT);
                 nk_slider_float(ctx, 1, &vd.tongue_diam, 3.5, 0.01);
             }
         }
@@ -163,6 +155,17 @@ int main(int argc, char *argv[])
             }
             nk_chart_end(ctx);
 
+        }
+        nk_end(ctx);
+        
+        if (nk_begin(ctx, "Tract", nk_rect(300, 50, 230, 500),
+            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
+            NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
+        {
+            nk_layout_row_static(ctx, 30, 200, 1);
+            for(i = 0; i < vd.tract_size; i++) {
+                nk_slider_float(ctx, 0, &vd.tract[i], 3.5, 0.01);
+            }
         }
         nk_end(ctx);
 
