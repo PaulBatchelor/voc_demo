@@ -119,6 +119,8 @@ int main(int argc, char *argv[])
             nk_slider_float(ctx, 10, vd.freq, 400, 0.01);
             nk_label(ctx, "Velum:", NK_TEXT_LEFT);
             nk_slider_float(ctx, 0, vd.velum, 0.8, 0.01);
+            nk_label(ctx, "Tenseness:", NK_TEXT_LEFT);
+            nk_slider_float(ctx, 0, vd.tenseness, 1, 0.01);
         }
         nk_end(ctx);
         

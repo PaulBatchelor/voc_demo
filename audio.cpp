@@ -59,6 +59,7 @@ void voc_demo_setup(voc_demo_d *vd)
     vd->tract_size= sp_voc_get_tract_size(vd->voc);
     vd->freq = sp_voc_get_frequency_ptr(vd->voc);
     vd->velum = sp_voc_get_velum_ptr(vd->voc);
+    vd->tenseness = sp_voc_get_tenseness_ptr(vd->voc);
 
     *vd->freq = 160;
     vd->gain = 1;

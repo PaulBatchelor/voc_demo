@@ -19,6 +19,7 @@ typedef struct {
     SPFLOAT *tract;
     SPFLOAT *freq;
     SPFLOAT *velum;
+    SPFLOAT *tenseness;
     uint32_t tract_size;
     SPFLOAT gain;
     int mode;

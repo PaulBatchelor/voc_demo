@@ -136,15 +136,15 @@ int counter;
 /*:3*/
 #line 107 "./voc.w"
 
-/*27:*/
+/*28:*/
 #line 9 "./glottis.w"
 
-/*30:*/
+/*31:*/
 #line 78 "./glottis.w"
 
 static void glottis_setup_waveform(glottis*glot,SPFLOAT lambda)
 {
-/*31:*/
+/*32:*/
 #line 96 "./glottis.w"
 
 SPFLOAT Rd;
@@ -172,10 +172,10 @@ SPFLOAT z;
 SPFLOAT alpha;
 SPFLOAT E0;
 
-/*:31*/
+/*:32*/
 #line 81 "./glottis.w"
 
-/*32:*/
+/*33:*/
 #line 136 "./glottis.w"
 
 glot->Rd= 3*(1-glot->tenseness);
@@ -185,42 +185,42 @@ Rd= glot->Rd;
 if(Rd<0.5)Rd= 0.5;
 if(Rd> 2.7)Rd= 2.7;
 
-/*:32*/
+/*:33*/
 #line 82 "./glottis.w"
 
-/*33:*/
+/*34:*/
 #line 158 "./glottis.w"
 
 Ra= -0.01+0.048*Rd;
 Rk= 0.224+0.118*Rd;
 Rg= (Rk/4)*(0.5+1.2*Rk)/(0.11*Rd-Ra*(0.5+1.2*Rk));
 
-/*:33*/
+/*:34*/
 #line 83 "./glottis.w"
 
-/*34:*/
+/*35:*/
 #line 170 "./glottis.w"
 
 Ta= Ra;
 Tp= (SPFLOAT)1.0/(2*Rg);
 Te= Tp+Tp*Rk;
 
-/*:34*/
+/*:35*/
 #line 84 "./glottis.w"
 
 
-/*35:*/
+/*36:*/
 #line 175 "./glottis.w"
 
 epsilon= (SPFLOAT)1.0/Ta;
 shift= exp(-epsilon*(1-Te));
 delta= 1-shift;
 
-/*:35*/
+/*:36*/
 #line 86 "./glottis.w"
 
 
-/*36:*/
+/*37:*/
 #line 180 "./glottis.w"
 
 rhs_integral= (SPFLOAT)(1.0/epsilon)*(shift-1)+(1-Te)*shift;
@@ -228,10 +228,10 @@ rhs_integral= rhs_integral/delta;
 lower_integral= -(Te-Tp)/2+rhs_integral;
 upper_integral= -lower_integral;
 
-/*:36*/
+/*:37*/
 #line 88 "./glottis.w"
 
-/*37:*/
+/*38:*/
 #line 191 "./glottis.w"
 
 omega= M_PI/Tp;
@@ -242,11 +242,11 @@ z= log(y);
 alpha= z/(Tp/2-Te);
 E0= -1/(s*exp(alpha*Te));
 
-/*:37*/
+/*:38*/
 #line 89 "./glottis.w"
 
 
-/*38:*/
+/*39:*/
 #line 200 "./glottis.w"
 
 glot->alpha= alpha;
@@ -259,15 +259,15 @@ glot->omega= omega;
 #line 117 "./voc.w"
 
 #line 1 "./tract.w"
-/*:38*/
+/*:39*/
 #line 91 "./glottis.w"
 
 }
 
-/*:30*/
+/*:31*/
 #line 10 "./glottis.w"
 
-/*28:*/
+/*29:*/
 #line 16 "./glottis.w"
 
 static void glottis_init(glottis*glot,SPFLOAT sr)
@@ -279,10 +279,10 @@ glot->time_in_waveform= 0;
 glottis_setup_waveform(glot,0);
 }
 
-/*:28*/
+/*:29*/
 #line 11 "./glottis.w"
 
-/*29:*/
+/*30:*/
 #line 31 "./glottis.w"
 
 static SPFLOAT glottis_compute(sp_data*sp,glottis*glot,SPFLOAT lambda)
@@ -326,17 +326,17 @@ out+= aspiration;
 return out;
 }
 
-/*:29*/
+/*:30*/
 #line 12 "./glottis.w"
 
 
-/*:27*/
+/*:28*/
 #line 108 "./voc.w"
 
-/*39:*/
+/*40:*/
 #line 11 "./tract.w"
 
-/*51:*/
+/*52:*/
 #line 222 "./tract.w"
 
 static void tract_calculate_reflections(tract*tr)
@@ -369,10 +369,10 @@ tr->new_reflection_right= (SPFLOAT)(2*tr->A[tr->nose_start+1]-sum)/sum;
 tr->new_reflection_nose= (SPFLOAT)(2*tr->noseA[0]-sum)/sum;
 }
 
-/*:51*/
+/*:52*/
 #line 12 "./tract.w"
 
-/*52:*/
+/*53:*/
 #line 258 "./tract.w"
 
 static void tract_calculate_nose_reflections(tract*tr)
@@ -389,10 +389,10 @@ tr->nose_reflection[i]= (tr->noseA[i-1]-tr->noseA[i])/
 }
 }
 
-/*:52*/
+/*:53*/
 #line 13 "./tract.w"
 
-/*53:*/
+/*54:*/
 #line 275 "./tract.w"
 
 
@@ -448,17 +448,17 @@ tr->noseA[0]= tr->nose_diameter[0]*tr->nose_diameter[0];
 #line 119 "./voc.w"
 
 #line 1 "./header.w"
-/*:53*/
+/*:54*/
 #line 14 "./tract.w"
 
-/*40:*/
+/*41:*/
 #line 21 "./tract.w"
 
 static void tract_init(sp_data*sp,tract*tr)
 {
 int i;
 SPFLOAT diameter,d;
-/*41:*/
+/*42:*/
 #line 38 "./tract.w"
 
 tr->n= 44;
@@ -480,10 +480,10 @@ tr->lip_output= 0;
 tr->nose_output= 0;
 tr->tip_start= 32;
 
-/*:41*/
+/*:42*/
 #line 26 "./tract.w"
 
-/*42:*/
+/*43:*/
 #line 61 "./tract.w"
 
 memset(tr->diameter,0,tr->n*sizeof(SPFLOAT));
@@ -506,10 +506,10 @@ memset(tr->nose_diameter,0,tr->nose_length*sizeof(SPFLOAT));
 memset(tr->noseA,0,tr->nose_length*sizeof(SPFLOAT));
 memset(tr->nose_max_amp,0,tr->nose_length*sizeof(SPFLOAT));
 
-/*:42*/
+/*:43*/
 #line 27 "./tract.w"
 
-/*43:*/
+/*44:*/
 #line 90 "./tract.w"
 
 for(i= 0;i<tr->n;i++){
@@ -529,10 +529,10 @@ tr->new_diameter[i]= diameter;
 
 }
 
-/*:43*/
+/*:44*/
 #line 28 "./tract.w"
 
-/*44:*/
+/*45:*/
 #line 116 "./tract.w"
 
 for(i= 0;i<tr->nose_length;i++){
@@ -546,7 +546,7 @@ diameter= MIN(diameter,1.9);
 tr->nose_diameter[i]= diameter;
 }
 
-/*:44*/
+/*:45*/
 #line 29 "./tract.w"
 
 
@@ -557,10 +557,10 @@ tr->nose_diameter[0]= tr->velum_target;
 tr->block_time= 512.0/(SPFLOAT)sp->sr;
 }
 
-/*:40*/
+/*:41*/
 #line 15 "./tract.w"
 
-/*45:*/
+/*46:*/
 #line 138 "./tract.w"
 
 static void tract_compute(sp_data*sp,tract*tr,
@@ -571,7 +571,7 @@ SPFLOAT r,w;
 int i;
 
 
-/*46:*/
+/*47:*/
 #line 158 "./tract.w"
 
 tr->junction_outR[0]= tr->L[0]*tr->glottal_reflection+in;
@@ -584,10 +584,10 @@ tr->junction_outR[i]= tr->R[i-1]-w;
 tr->junction_outL[i]= tr->L[i]+w;
 }
 
-/*:46*/
+/*:47*/
 #line 147 "./tract.w"
 
-/*47:*/
+/*48:*/
 #line 169 "./tract.w"
 
 i= tr->nose_start;
@@ -598,10 +598,10 @@ tr->junction_outR[i]= r*tr->L[i]+(1+r)*(tr->R[i-1]+tr->noseL[0]);
 r= tr->new_reflection_nose*(1-lambda)+tr->reflection_nose*lambda;
 tr->nose_junc_outR[0]= r*tr->noseL[0]+(1+r)*(tr->L[i]+tr->R[i-1]);
 
-/*:47*/
+/*:48*/
 #line 148 "./tract.w"
 
-/*48:*/
+/*49:*/
 #line 178 "./tract.w"
 
 for(i= 0;i<tr->n;i++){
@@ -610,10 +610,10 @@ tr->L[i]= tr->junction_outL[i+1]*0.999;
 }
 tr->lip_output= tr->R[tr->n-1];
 
-/*:48*/
+/*:49*/
 #line 149 "./tract.w"
 
-/*49:*/
+/*50:*/
 #line 185 "./tract.w"
 
 tr->nose_junc_outL[tr->nose_length]= 
@@ -625,10 +625,10 @@ tr->nose_junc_outR[i]= tr->noseR[i-1]-w;
 tr->nose_junc_outL[i]= tr->noseL[i]+w;
 }
 
-/*:49*/
+/*:50*/
 #line 150 "./tract.w"
 
-/*50:*/
+/*51:*/
 #line 195 "./tract.w"
 
 for(i= 0;i<tr->nose_length;i++){
@@ -637,23 +637,23 @@ tr->noseL[i]= tr->nose_junc_outL[i+1];
 }
 tr->nose_output= tr->noseR[tr->nose_length-1];
 
-/*:50*/
+/*:51*/
 #line 151 "./tract.w"
 
 }
 
-/*:45*/
+/*:46*/
 #line 16 "./tract.w"
 
 
-/*:39*/
+/*:40*/
 #line 109 "./voc.w"
 
 /*8:*/
 #line 10 "./top.w"
 
 /*9:*/
-#line 32 "./top.w"
+#line 33 "./top.w"
 
 int sp_voc_create(sp_voc**voc)
 {
@@ -665,7 +665,7 @@ return SP_OK;
 #line 11 "./top.w"
 
 /*10:*/
-#line 42 "./top.w"
+#line 43 "./top.w"
 
 int sp_voc_destroy(sp_voc**voc)
 {
@@ -677,7 +677,7 @@ return SP_OK;
 #line 12 "./top.w"
 
 /*11:*/
-#line 52 "./top.w"
+#line 53 "./top.w"
 
 int sp_voc_init(sp_data*sp,sp_voc*voc)
 {
@@ -691,7 +691,7 @@ return SP_OK;
 #line 13 "./top.w"
 
 /*12:*/
-#line 65 "./top.w"
+#line 66 "./top.w"
 
 int sp_voc_compute(sp_data*sp,sp_voc*voc,SPFLOAT*out)
 {
@@ -729,7 +729,7 @@ return SP_OK;
 #line 14 "./top.w"
 
 /*13:*/
-#line 103 "./top.w"
+#line 104 "./top.w"
 
 int sp_voc_tract_compute(sp_data*sp,sp_voc*voc,SPFLOAT*in,SPFLOAT*out)
 {
@@ -760,7 +760,7 @@ return SP_OK;
 #line 15 "./top.w"
 
 /*14:*/
-#line 132 "./top.w"
+#line 133 "./top.w"
 
 void sp_voc_set_frequency(sp_voc*voc,SPFLOAT freq)
 {
@@ -771,7 +771,7 @@ voc->glot.freq= freq;
 #line 16 "./top.w"
 
 /*15:*/
-#line 142 "./top.w"
+#line 143 "./top.w"
 
 SPFLOAT*sp_voc_get_frequency_ptr(sp_voc*voc)
 {
@@ -782,7 +782,7 @@ return&voc->glot.freq;
 #line 17 "./top.w"
 
 /*16:*/
-#line 151 "./top.w"
+#line 152 "./top.w"
 
 SPFLOAT*sp_voc_get_tract_diameters(sp_voc*voc)
 {
@@ -793,7 +793,7 @@ return voc->tr.target_diameter;
 #line 18 "./top.w"
 
 /*17:*/
-#line 162 "./top.w"
+#line 163 "./top.w"
 
 SPFLOAT*sp_voc_get_current_tract_diameters(sp_voc*voc)
 {
@@ -804,7 +804,7 @@ return voc->tr.diameter;
 #line 19 "./top.w"
 
 /*18:*/
-#line 169 "./top.w"
+#line 170 "./top.w"
 
 int sp_voc_get_tract_size(sp_voc*voc)
 {
@@ -815,7 +815,7 @@ return voc->tr.n;
 #line 20 "./top.w"
 
 /*19:*/
-#line 176 "./top.w"
+#line 177 "./top.w"
 
 
 SPFLOAT*sp_voc_get_nose_diameters(sp_voc*voc)
@@ -827,7 +827,7 @@ return voc->tr.nose_diameter;
 #line 21 "./top.w"
 
 /*20:*/
-#line 184 "./top.w"
+#line 185 "./top.w"
 
 int sp_voc_get_nose_size(sp_voc*voc)
 {
@@ -838,7 +838,7 @@ return voc->tr.nose_length;
 #line 22 "./top.w"
 
 /*21:*/
-#line 212 "./top.w"
+#line 213 "./top.w"
 
 void sp_voc_set_diameters(sp_voc*voc,
 int blade_start,
@@ -870,7 +870,7 @@ diameters[i]= 1.5-curve;
 #line 23 "./top.w"
 
 /*22:*/
-#line 252 "./top.w"
+#line 253 "./top.w"
 
 
 void sp_voc_set_tongue_shape(sp_voc*voc,
@@ -886,7 +886,7 @@ tongue_index,tongue_diameter,diameters);
 #line 24 "./top.w"
 
 /*23:*/
-#line 270 "./top.w"
+#line 271 "./top.w"
 
 
 int sp_voc_get_counter(sp_voc*voc)
@@ -897,29 +897,40 @@ return voc->counter;
 #line 25 "./top.w"
 
 /*24:*/
-#line 277 "./top.w"
+#line 285 "./top.w"
 
-void sp_voc_set_breathiness(sp_voc*voc,SPFLOAT breathiness)
+void sp_voc_set_tenseness(sp_voc*voc,SPFLOAT tenseness)
 {
-voc->glot.tenseness= breathiness;
+voc->glot.tenseness= tenseness;
 }
 
 /*:24*/
 #line 26 "./top.w"
 
 /*25:*/
-#line 287 "./top.w"
+#line 296 "./top.w"
 
-void sp_voc_set_velum(sp_voc*voc,SPFLOAT velum)
+SPFLOAT*sp_voc_get_tenseness_ptr(sp_voc*voc)
 {
-voc->tr.velum_target= velum;
+return&voc->glot.tenseness;
 }
 
 /*:25*/
 #line 27 "./top.w"
 
 /*26:*/
-#line 297 "./top.w"
+#line 306 "./top.w"
+
+void sp_voc_set_velum(sp_voc*voc,SPFLOAT velum)
+{
+voc->tr.velum_target= velum;
+}
+
+/*:26*/
+#line 28 "./top.w"
+
+/*27:*/
+#line 316 "./top.w"
 
 
 SPFLOAT*sp_voc_get_velum_ptr(sp_voc*voc)
@@ -930,8 +941,8 @@ return&voc->tr.velum_target;
 #line 115 "./voc.w"
 
 #line 1 "./glottis.w"
-/*:26*/
-#line 28 "./top.w"
+/*:27*/
+#line 29 "./top.w"
 
 
 /*:8*/
