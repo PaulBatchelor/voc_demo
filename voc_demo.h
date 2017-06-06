@@ -6,7 +6,6 @@ extern "C" {
 #endif
 
 #include <soundpipe.h>
-#include "voc.h"
 
 enum {
 VOC_NONE,

@@ -1,12 +1,12 @@
 BIN = voc_demo
 
-CFLAGS += -std=c99 -pedantic -O2 -Inuklear -Ivoc -g
-CXXFLAGS += -Irtaudio -Ivoc 
+CFLAGS += -std=c99 -pedantic -O2 -Inuklear -g
+CXXFLAGS += -Irtaudio 
 CONFIG ?=
 
 include $(CONFIG)
 
-OBJ = main.o rtaudio/RtAudio.o audio.o voc/voc.o
+OBJ = main.o rtaudio/RtAudio.o audio.o 
 UNAME := $(shell uname)
 
 ifeq ($(UNAME), Darwin)

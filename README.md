@@ -19,7 +19,9 @@ This demo has been tested on both Linux and Mac OSX.
 
 First, make sure that 
 [Soundpipe](https://www.github.com/paulbatchelor/soundpipe) is installed.
-Both Linux and OSX users will need to compile this from source.
+Both Linux and OSX users will need to compile this from source. 
+**Voc is now a part of Soundpipe. Be sure to use the "dev" 
+branch of Soundpipe to make sure Voc gets installed.**
 
 This demo relies on the GLFW OpenGL2 backend for Nuklear, so make sure that
 is properly configured and installed. On Linux, you'll install it through the
