@@ -1,4 +1,4 @@
-/*55:*/
+/*63:*/
 #line 21 "./header.w"
 
 #ifndef SP_VOC
@@ -39,7 +39,7 @@ int sp_voc_get_counter(sp_voc*voc);
 
 
 #endif
-#line 121 "./voc.w"
+#line 136 "./voc.w"
 
 #line 1 "./debug.w"
-/*:55*/
+/*:63*/
