@@ -27,7 +27,7 @@ else
 CXX=g++
 CXXFLAGS += -D__UNIX_JACK__ 
 LIBS += -lstdc++ -ljack -lsoundpipe -lsndfile
-LIBS += -lglfw -lGL -lm -lGLU 
+LIBS += -lglfw -lGL -lm -lGLU -lpthread
 endif
 
 
